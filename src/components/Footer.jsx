@@ -16,6 +16,8 @@ const Footer = () => {
     legal: false,
   });
 
+  
+
 
   return (
     <footer className="FooterMainCont w-full bg-white  pt-[100px] pb-16 z-[200]">

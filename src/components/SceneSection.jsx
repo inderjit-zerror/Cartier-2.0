@@ -8,6 +8,7 @@ const SceneSection = () => {
   const { nodes, materials } = useGLTF(`/model/Mouse.glb`);
   const ring = useGLTF("/model/Ring.glb");
   const box = useGLTF("/model/box.glb");
+  const autoRotateSpeed = (Math.PI * 2) / 20; // radians per second
 
   // Texture ------------------------------------------
 
@@ -69,13 +70,25 @@ const SceneSection = () => {
   };
 
   // Keep drag plane always in front of camera
-  useFrame(() => {
+  useFrame((state, delta) => {
     if (dragPlaneRef.current) {
       dragPlaneRef.current.position.copy(camera.position);
       dragPlaneRef.current.position.z -= 1;
     }
+    // --- AUTO ROTATIONS (20s loop) ---
+  if (ringRef.current) {
+    ringRef.current.rotation.y += autoRotateSpeed * delta;
+  }
+  if (boxRef.current) {
+    boxRef.current.rotation.y += autoRotateSpeed * delta;
+  }
+  if (mouseRef.current) {
+    mouseRef.current.rotation.y += autoRotateSpeed * delta;
+  }
   });
   // ------------------------------------------------------
+
+ 
 
   return (
     <>
