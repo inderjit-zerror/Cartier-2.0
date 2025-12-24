@@ -16,10 +16,10 @@ export default function Home() {
   const audioRef = useRef();
   const tlRef = useRef(null);
 
-   const circleRef = useRef(null);
+  const circleRef = useRef(null);
   const containerRef = useRef(null);
 
-   useEffect(() => {
+  useEffect(() => {
     // Rotate animation
     gsap.to(circleRef.current, {
       rotation: 360,
@@ -139,6 +139,54 @@ export default function Home() {
     });
   }, []);
 
+
+  // FOR PAGE NAVIGATOR
+  useEffect(()=>{
+     const PN1 = gsap.timeline({
+      scrollTrigger:{
+        trigger:'.PAGE2',
+        start:'top 50%',
+        end:'top 40%',
+        scrub:true,
+        // markers:true
+      }
+     })
+     PN1.to('.FirstNavigator',{
+      width:'4px',
+      height: '4px',
+      ease:'linear'
+     },'p1')
+     PN1.to('.SecondNavigator',{
+      width:'10px',
+      height: '10px',
+      ease:'linear'
+     },'p1')
+
+  },[])
+
+  useEffect(()=>{
+     const PN2 = gsap.timeline({
+      scrollTrigger:{
+        trigger:'.PAGE3',
+        start:'top 50%',
+        end:'top 40%',
+        scrub:true,
+        // markers:true
+      }
+     })
+     PN2.to('.SecondNavigator',{
+      width:'4px',
+      height: '4px',
+      ease:'linear'
+     },'p1')
+     PN2.to('.ThirdNavigator',{
+      width:'10px',
+      height: '10px',
+      ease:'linear'
+     },'p1')
+
+  },[])
+
   return (
     <>
       {ViewChange === false ? (
@@ -147,6 +195,14 @@ export default function Home() {
 
           {/* Smooth */}
           <SmoothScroll />
+
+          {/* PageNavigator */}
+          <div className="w-[20px] PN pointer-events-none h-[10dvh]  fixed top-[50%] translate-y-[-50%] right-[2%] z-[100] flex flex-col justify-between items-center z-[100]">
+            {/* page_Navigator */}
+            <div className=" FirstNavigator w-[10px] h-[10px] rounded-full bg-white"></div>
+            <div className=" SecondNavigator w-[4px] h-[4px] rounded-full bg-white"></div>
+            <div className=" ThirdNavigator w-[4px] h-[4px] rounded-full bg-white"></div>
+          </div>
 
           {/* Background_AUDIO */}
           <audio ref={audioRef} src="/sound/BackgroundSound.mp3" loop />
